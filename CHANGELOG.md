@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 (2026-11-06)
+
+- Added full support for Linux and macOS (tested on both, plus Windows, with Node 20, 22 and 24)
+- processes: works on macOS (BSD `ps` has no `etimes`)
+- wait_for: no longer piles up abort listeners while polling
+- image_edit: clear message when the installed ffmpeg lacks an encoder (Homebrew's has no webp)
+
 ## 0.3.0 (2026-11-06)
 
 - 29 new tools, 55 in total: solve, matrix, number_theory, finance, holidays, calendar, cron, table, table_convert, text_transform, token_count, markdown, extract, schema, sqlite, pdf_text, disk_usage, find_duplicates, batch_rename, archive, env_compare, log_summary, processes, sysinfo, run_parallel, deps_check, http, net, image_edit

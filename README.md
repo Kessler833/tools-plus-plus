@@ -1,10 +1,14 @@
 # tools++
 
-An MCP server with 55 small tools for Claude: a calculator that doesn't round, a calendar that knows German holidays, CSV and SQLite queries, PDF text, archives, ports, ffmpeg helpers and so on.
+[![test](https://github.com/Kessler833/tools-plus-plus/actions/workflows/test.yml/badge.svg)](https://github.com/Kessler833/tools-plus-plus/actions/workflows/test.yml)
+
+An MCP server with 55 small tools that add to the ones Claude already has, so everyday tasks get simpler and take fewer steps: a calculator that doesn't round, a calendar that knows German holidays, CSV and SQLite queries, PDF text, archives, ports, ffmpeg helpers and so on.
 
 I built this because Claude kept doing arithmetic in its head, guessing today's date and writing a new throwaway script every time it had to look at a CSV. Now it just calls a tool.
 
-No dependencies, only Node.js. Tool schemas are loaded when a tool is first needed, so having the plugin installed costs almost nothing.
+Nothing here replaces Claude's own tools. Files, shell commands and web search stay with them. tools++ covers what's left: the things Claude would otherwise guess, estimate or script by hand.
+
+No dependencies, only Node.js. Runs on Windows, macOS and Linux. Tool schemas are loaded when a tool is first needed, so having the plugin installed costs almost nothing.
 
 ## Setup
 
