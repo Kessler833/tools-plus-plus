@@ -1,0 +1,15 @@
+{
+  "name": "tools-plus-plus",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Everyday tools for Claude as a zero-dependency MCP server: exact calculator, units, dates, statistics, text and data tools, files, web lookups and media.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.3"
+  },
+  "scripts": {
+    "start": "node server/index.mjs",
+    "test": "node test/run.mjs",
+    "test:online": "node test/run.mjs --online"
+  }
+}
