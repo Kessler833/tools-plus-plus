@@ -282,7 +282,12 @@ export async function imageEdit(args = {}, ctx = {}) {
     if ((await statOrNull(out)) && !args.overwrite) throw new ToolError(`${out} exists; pass overwrite: true or another out_dir/suffix`);
     const q = ext === 'jpg' ? ['-q:v', String(Math.round(2 + ((100 - quality) / 100) * 29))] : ext === 'webp' ? ['-quality', String(quality)] : ext === 'avif' ? ['-crf', String(Math.round(63 - quality * 0.5))] : [];
     const r = await run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', file, ...(vf.length ? ['-vf', vf.join(',')] : []), '-frames:v', '1', ...q, ...(ext === 'gif' ? [] : ['-update', '1']), out], { signal: ctx.signal });
-    if (r.code !== 0) throw new ToolError(`ffmpeg failed on ${basename(file)}: ${r.stderr.trim().split('\n').pop()}`);
+    if (r.code !== 0) {
+      if (/Encoder not found|Unknown encoder/i.test(r.stderr)) {
+        throw new ToolError(`This ffmpeg build cannot write ${ext} (encoder missing, e.g. libwebp for webp or libaom for avif). Pick png or jpg, or install a full ffmpeg build.`);
+      }
+      throw new ToolError(`ffmpeg failed on ${basename(file)}: ${r.stderr.trim().split('\n').pop()}`);
+    }
     const [before, after] = await Promise.all([statOrNull(file), statOrNull(out)]);
     const dims = (await probe(out, ctx.signal)).streams?.find((s) => s.codec_type === 'video');
     lines.push(`${basename(file)} → ${out}  ${dims ? `${dims.width}x${dims.height}` : ''}  ${fmtBytes(before.size)} → ${fmtBytes(after.size)}`);

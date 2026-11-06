@@ -829,7 +829,9 @@ if (HAS_FFMPEG) {
   await check('cover', () => imageEdit({ path: img, width: 100, height: 100, fit: 'cover', suffix: '_sq' }), '100x100');
   await check('contain', () => imageEdit({ path: img, width: 100, height: 100, suffix: '_c' }), '100x75');
   await check('crop rotate', () => imageEdit({ path: img, crop: { x: 10, y: 10, width: 100, height: 50 }, rotate: 90, suffix: '_cr' }), '50x100');
-  await check('to webp', () => imageEdit({ path: join(scratch, 'fs/img/b.jpg'), format: 'webp', quality: 70 }), 'b_edited.webp');
+  // some ffmpeg builds (e.g. Homebrew's) ship without a webp encoder
+  const hasWebp = /libwebp/.test(spawnSync('ffmpeg', ['-hide_banner', '-encoders']).stdout?.toString() ?? '');
+  await check('to webp', () => imageEdit({ path: join(scratch, 'fs/img/b.jpg'), format: 'webp', quality: 70 }), hasWebp ? 'b_edited.webp' : 'cannot write webp');
   await check('exists', () => imageEdit({ path: img, width: 200 }), 'exists');
   await check('folder', () => imageEdit({ path: join(scratch, 'fs/img'), width: 50, out_dir: join(scratch, 'fs/thumbs') }), /\d+ image\(s\) processed/);
   await check('nothing to do', () => imageEdit({ path: img }), 'Nothing to do');
