@@ -481,6 +481,12 @@ await check('port closed', () => waitFor({ condition: 'port_closed', target: '12
 await check('process exit', () => waitFor({ condition: 'process_exit', target: 999999, timeout_s: 2 }), '✓ process_exit');
 await check('process alive', () => waitFor({ condition: 'process_exit', target: process.pid, timeout_s: 0.2 }), 'Timed out', 'running');
 await check('bad condition', () => waitFor({ condition: 'nope', target: 'x' }), 'condition must be');
+await check('no listener leak', async () => {
+  const { getEventListeners } = await import('node:events');
+  const ac = new AbortController();
+  await waitFor({ condition: 'file_exists', target: join(scratch, 'never'), timeout_s: 1.2, interval_ms: 100 }, { signal: ac.signal }).catch(() => {});
+  return `listeners left: ${getEventListeners(ac.signal, 'abort').length}`;
+}, 'listeners left: 0');
 await check('cancel', async () => {
   const ac = new AbortController();
   setTimeout(() => ac.abort(), 200);

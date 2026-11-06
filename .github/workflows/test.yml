@@ -17,8 +17,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Install ffmpeg (media tests)
-        if: matrix.node == 24
-        uses: FedericoCarboni/setup-ffmpeg@v3
+      # ffmpeg only for one Node version per OS, it's slow to install
+      - name: Install ffmpeg (Linux)
+        if: matrix.node == 24 && runner.os == 'Linux'
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+      - name: Install ffmpeg (macOS)
+        if: matrix.node == 24 && runner.os == 'macOS'
+        run: brew install ffmpeg
+      - name: Install ffmpeg (Windows)
+        if: matrix.node == 24 && runner.os == 'Windows'
+        run: choco install ffmpeg -y --no-progress
       - name: Offline tests
         run: node test/run.mjs

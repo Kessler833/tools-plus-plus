@@ -85,11 +85,16 @@ export async function fetchJson(url, { signal, timeoutMs = 10_000, headers = {} 
 export function sleep(ms, signal) {
   return new Promise((done, fail) => {
     if (signal?.aborted) return fail(new ToolError('Cancelled'));
-    const timer = setTimeout(done, ms);
-    signal?.addEventListener('abort', () => {
+    const onAbort = () => {
       clearTimeout(timer);
       fail(new ToolError('Cancelled'));
-    }, { once: true });
+    };
+    // remove the listener when the sleep ends normally, or polling loops pile them up
+    const timer = setTimeout(() => {
+      signal?.removeEventListener('abort', onAbort);
+      done();
+    }, ms);
+    signal?.addEventListener('abort', onAbort, { once: true });
   });
 }
 

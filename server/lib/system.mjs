@@ -52,12 +52,17 @@ async function listProcesses() {
       started: p.StartTime ? new Date(Number(/\d+/.exec(p.StartTime)?.[0] ?? Date.parse(p.StartTime))) : null, cmd: p.Path ?? '',
     }));
   }
-  const r = await exec('ps', ['-axo', 'pid=,ppid=,pcpu=,rss=,etimes=,comm=,args=']);
+  // etime ("[[dd-]hh:]mm:ss") exists on Linux and macOS; etimes is Linux-only
+  const r = await exec('ps', ['-axo', 'pid=,ppid=,pcpu=,rss=,etime=,comm=,args=']);
   if (r.code !== 0) throw new ToolError(`ps failed: ${r.stderr.trim()}`);
+  const seconds = (etime) => {
+    const [days, clock] = etime.includes('-') ? etime.split('-') : ['0', etime];
+    return clock.split(':').reduce((s, part) => s * 60 + Number(part), 0) + Number(days) * 86400;
+  };
   return r.stdout.split('\n').filter(Boolean).map((l) => {
-    const m = /^\s*(\d+)\s+(\d+)\s+([\d.]+)\s+(\d+)\s+(\d+)\s+(\S+)\s*(.*)$/.exec(l);
+    const m = /^\s*(\d+)\s+(\d+)\s+([\d.]+)\s+(\d+)\s+([\d:-]+)\s+(\S+)\s*(.*)$/.exec(l);
     if (!m) return null;
-    return { pid: +m[1], name: m[6].split('/').pop(), cpuPct: +m[3], mem: +m[4] * 1024, started: new Date(Date.now() - m[5] * 1000), cmd: m[7] };
+    return { pid: +m[1], name: m[6].split('/').pop(), cpuPct: +m[3], mem: +m[4] * 1024, started: new Date(Date.now() - seconds(m[5]) * 1000), cmd: m[7] };
   }).filter(Boolean);
 }
 
