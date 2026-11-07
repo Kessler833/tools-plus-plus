@@ -170,4 +170,4 @@ Each tool is one entry in `server/tools.mjs`, the code lives in `server/lib/`.
 
 ## License
 
-MIT
+[MIT](LICENSE) © Hannes Kapsch
