@@ -4,7 +4,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-export const VERSION = '0.4.0';
+export const VERSION = '0.4.2';
 export const USER_AGENT = `tools-plus-plus/${VERSION} (Claude Code plugin)`;
 
 /** An expected failure; its message is shown to Claude as-is. */

@@ -1,6 +1,6 @@
 {
   "name": "tools-plus-plus",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "55 small tools for Claude: exact math, dates and holidays, CSV/SQLite/PDF, files, ports, HTTP and ffmpeg helpers. Only needs Node.js.",
   "author": {
     "name": "Hannes Kapsch"

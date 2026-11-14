@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.4.2 (2026-11-14)
+
+- The MCP server now reports the correct version in serverInfo and its User-Agent. No other changes.
+
 ## 0.4.1 (2026-11-14)
 
-- Moved to the new GitHub account name HannesKapsch: install commands, links and the live demo URL now point to github.com/HannesKapsch. Old Kessler833 links redirect for now. No code changes.
+- Moved to the new GitHub account name HannesKapsch: install commands and links now point to github.com/HannesKapsch. Old Kessler833 links redirect for now. No code changes.
 
 ## 0.4.0 (2026-11-06)
 
