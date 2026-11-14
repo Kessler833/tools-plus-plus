@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1 (2026-11-14)
+
+- Moved to the new GitHub account name HannesKapsch: install commands, links and the live demo URL now point to github.com/HannesKapsch. Old Kessler833 links redirect for now. No code changes.
+
 ## 0.4.0 (2026-11-06)
 
 - Added full support for Linux and macOS (tested on both, plus Windows, with Node 20, 22 and 24)

@@ -1,6 +1,6 @@
 # tools++
 
-[![test](https://github.com/Kessler833/tools-plus-plus/actions/workflows/test.yml/badge.svg)](https://github.com/Kessler833/tools-plus-plus/actions/workflows/test.yml)
+[![test](https://github.com/HannesKapsch/tools-plus-plus/actions/workflows/test.yml/badge.svg)](https://github.com/HannesKapsch/tools-plus-plus/actions/workflows/test.yml)
 
 An MCP server with 55 small tools that add to the ones Claude already has, so everyday tasks get simpler and take fewer steps: a calculator that doesn't round, a calendar that knows German holidays, CSV and SQLite queries, PDF text, archives, ports, ffmpeg helpers and so on.
 
@@ -35,7 +35,7 @@ sudo apt install ffmpeg        # Debian/Ubuntu
 Run these two commands inside Claude Code:
 
 ```
-/plugin marketplace add Kessler833/tools-plus-plus
+/plugin marketplace add HannesKapsch/tools-plus-plus
 /plugin install tools-plus-plus@tools-plus-plus
 ```
 
@@ -48,7 +48,7 @@ Start a new session (or run `/reload-plugins`) and ask something like "what's 2^
 It's a normal stdio MCP server, so it also works in Claude Desktop, Cursor, VS Code, Windsurf, Cline, Zed, Codex CLI, Gemini CLI etc. Clone the repo:
 
 ```
-git clone https://github.com/Kessler833/tools-plus-plus.git
+git clone https://github.com/HannesKapsch/tools-plus-plus.git
 ```
 
 and add this to the client's MCP config, with the path to where you cloned it:
@@ -70,7 +70,7 @@ ChatGPT can't use it directly, since it only connects to remote (HTTP) MCP serve
 
 Paste this into Claude Code, Cursor or whatever agent you use:
 
-> Install the tools++ MCP server from https://github.com/Kessler833/tools-plus-plus for me and check that it works.
+> Install the tools++ MCP server from https://github.com/HannesKapsch/tools-plus-plus for me and check that it works.
 
 ## Tools
 
